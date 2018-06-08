@@ -80,17 +80,24 @@ class TasksController extends Controller
      */
     public function show($id){
         $task = Task::find($id);
-        // print_r($task);
+        // print_r($task). "<br>";
         // print_r(\Auth::user());
+        if (null !== \Auth::user()){ 
             if (isset($task)){
-                if (null !== \Auth::user() && \Auth::user()->id == $task->user_id){
+                if (\Auth::user()->id == $task->user_id){
                     return view('tasks.show', [ 'task' => $task,]);
                     
                 }else{
-                    return view('welcome');
+                    $task = Task::all();
+                    return view('tasks.index', [ 'tasks' => $task,]);
                 }
             }else{
-              return view('welcome');
+                $task = Task::all();
+                    return view('tasks.index', [ 'tasks' => $task,]);
+            }
+            
+                }else{return view('welcome');
+                
             }
     }
 
@@ -100,13 +107,24 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $task = task::find($id);
+    public function edit($id){
+        $task = Task::find($id);
+      if (null !== \Auth::user()){
+           if (\Auth::user()->id == $task->user_id){
+          $task = task::find($id);
 
         return view('tasks.edit', [
             'task' => $task,
         ]);
+    }else{
+      $task = Task::all();
+       return view('tasks.index', [ 'tasks' => $task,]);
+        // echo "aaa";
+    }
+    }else{
+        return view('welcome');
+    }
+        
     }
 
     /**

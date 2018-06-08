@@ -2,14 +2,7 @@
 
 @section('content')
 
-<?php
-class Jumping{
-  public function jump(){
-    return view('welcome');
-    // echo "jump";
-}  
-}
-?>
+
 
     
         <div class="center jumbotron">
