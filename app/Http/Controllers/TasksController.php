@@ -80,8 +80,8 @@ class TasksController extends Controller
      */
     public function show($id){
         $task = Task::find($id);
-        print_r($task);
-        print_r(\Auth::user());
+        // print_r($task);
+        // print_r(\Auth::user());
             if (isset($task)){
                 if (null !== \Auth::user() && \Auth::user()->id == $task->user_id){
                     return view('tasks.show', [ 'task' => $task,]);
